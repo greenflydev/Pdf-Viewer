@@ -127,6 +127,10 @@ fun MyPdfScreenFromUri(uri: Uri, modifier: Modifier = Modifier) {
             override fun onPageChanged(currentPage: Int, totalPage: Int) {
                 //Page change. Not require
             }
+
+            override fun onScale(scaleFactor: Float) {
+                Log.i("statusCallBack", "onScale")
+            }
         }
     )
 }
@@ -161,6 +165,10 @@ fun MyPdfScreenFromUrl(url: String, modifier: Modifier = Modifier) {
 
             override fun onPageChanged(currentPage: Int, totalPage: Int) {
                 //Page change. Not require
+            }
+
+            override fun onScale(scaleFactor: Float) {
+                // Page zoomed
             }
         }
 

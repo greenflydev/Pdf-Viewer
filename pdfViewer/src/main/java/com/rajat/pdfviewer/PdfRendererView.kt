@@ -75,6 +75,7 @@ class PdfRendererView @JvmOverloads constructor(
         fun onPdfLoadSuccess(absolutePath: String) {}
         fun onError(error: Throwable) {}
         fun onPageChanged(currentPage: Int, totalPage: Int) {}
+        fun onScale(scaleFactor: Float) {}
     }
 
     // Load PDF from network URL
@@ -150,6 +151,16 @@ class PdfRendererView @JvmOverloads constructor(
             }
             setZoomEnabled(isZoomEnabled)
             addOnScrollListener(scrollListener)
+            /*
+             * This will report when the pdf is zoomed or not and it will return the
+             * scale factor. A scale factor of 1.0 means it is not zoomed.
+             */
+            setPinchZoomListener(object : PinchZoomRecyclerView.PinchZoomListener {
+                override fun onScale(scaleFactor: Float) {
+                    super.onScale(scaleFactor)
+                    this@PdfRendererView.statusListener?.onScale(scaleFactor)
+                }
+            })
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
