@@ -103,6 +103,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageChanged(currentPage: Int, totalPage: Int) {
                 Log.i("PDF Status", "Page changed: $currentPage / $totalPage")
             }
+
+            override fun onScale(scaleFactor: Float) {
+                Log.i("PDF Status", "Scale factor: ${scaleFactor}")
+            }
         }
     }
 

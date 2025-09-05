@@ -284,6 +284,10 @@ class PdfViewerActivity : AppCompatActivity() {
             override fun onPageChanged(currentPage: Int, totalPage: Int) {
                 //Page change. Not require
             }
+
+            override fun onScale(scaleFactor: Float) {
+                // Page zoomed
+            }
         }
 
         if (intent.extras!!.containsKey(FILE_URL)) {

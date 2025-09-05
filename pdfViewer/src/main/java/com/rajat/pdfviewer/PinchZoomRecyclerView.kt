@@ -35,6 +35,20 @@ class PinchZoomRecyclerView @JvmOverloads constructor(
     private var posX = 0f
     private var posY = 0f
 
+    /*
+     * This listener will trigger anytime the pdf is zoomed and it will
+     * return the scaleFactor. A scaleFactor of 1.0 means it is not scaled.
+     */
+    private var pinchZoomListener: PinchZoomListener? = null
+
+    interface PinchZoomListener {
+        fun onScale(scaleFactor: Float) {}
+    }
+
+    fun setPinchZoomListener(pinchZoomListener: PinchZoomListener) {
+        this.pinchZoomListener = pinchZoomListener
+    }
+
     init {
         setWillNotDraw(false)
     }
@@ -183,6 +197,8 @@ class PinchZoomRecyclerView @JvmOverloads constructor(
                 val focusYInContent = (detector.focusY - posY) / scaleFactor
 
                 scaleFactor = newScale
+
+                pinchZoomListener?.onScale(scaleFactor)
 
                 posX = detector.focusX - focusXInContent * scaleFactor
                 posY = detector.focusY - focusYInContent * scaleFactor
